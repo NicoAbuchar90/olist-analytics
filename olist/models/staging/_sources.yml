@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: olist_raw
+    description: "Raw Olist e-commerce data loaded from CSVs into BigQuery."
+    database: data-eng-portfolio-503716
+    schema: olist_raw
+    tables:
+      - name: olist_orders
+      - name: olist_order_items
+      - name: olist_customers
+      - name: olist_order_payments
+      - name: olist_products
+      - name: olist_sellers
+      - name: product_category_name_translation
+      - name: olist_geolocation
