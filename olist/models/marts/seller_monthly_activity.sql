@@ -18,10 +18,10 @@ seller_monthly as (
         seller_id,
         seller_state,
         order_month,
-        count(distinct order_id)  as n_orders,
-        count(*)                  as n_items,
-        round(sum(price), 2)                as revenue,
-        round(sum(freight_value), 2)        as freight
+        count(distinct order_id) as n_orders,
+        count(*) as n_items,
+        round(sum(price), 2) as revenue,
+        round(sum(freight_value), 2) as freight
 
     from successful_items
     group by seller_id, seller_state, order_month

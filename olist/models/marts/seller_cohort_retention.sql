@@ -24,8 +24,8 @@ activity_with_cohort as (
         m.order_month,
         date_diff(m.order_month, c.cohort_month, month) + 1 as tenure,
         m.revenue
-    from monthly m
-    inner join seller_cohort c
+    from monthly as m
+    inner join seller_cohort as c
         on m.seller_id = c.seller_id
 
 ),
@@ -38,7 +38,7 @@ cohort_retention as (
         order_month,
         tenure,
         count(distinct seller_id) as n_active_sellers,
-        round(sum(revenue), 2)              as cohort_revenue
+        round(sum(revenue), 2) as cohort_revenue
     from activity_with_cohort
     group by cohort_month, order_month, tenure
 

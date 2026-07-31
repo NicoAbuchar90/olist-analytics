@@ -24,10 +24,10 @@ joined as (
         s.seller_city,
         s.seller_state
 
-    from order_items oi
-    inner join orders o
+    from order_items as oi
+    inner join orders as o
         on oi.order_id = o.order_id
-    left join sellers s
+    left join sellers as s
         on oi.seller_id = s.seller_id
 )
 
