@@ -38,7 +38,7 @@ cohort_retention as (
         order_month,
         tenure,
         count(distinct seller_id) as n_active_sellers,
-        sum(revenue)              as cohort_revenue
+        round(sum(revenue), 2)              as cohort_revenue
     from activity_with_cohort
     group by cohort_month, order_month, tenure
 

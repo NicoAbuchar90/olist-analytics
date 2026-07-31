@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: seller_monthly_activity
+    description: "Seller activity per month (successful sales only: delivered/shipped)."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - seller_id
+              - order_month
+    columns:
+      - name: seller_id
+        tests:
+          - not_null
+      - name: order_month
+        tests:
+          - not_null
+      - name: revenue
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: true
+
+  - name: seller_cohort_retention
+    description: "Seller retention and revenue by acquisition cohort and tenure."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - cohort_month
+              - order_month
+              - tenure
+    columns:
+      - name: cohort_month
+        tests:
+          - not_null
+      - name: tenure
+        tests:
+          - not_null
+      - name: n_active_sellers
+        tests:
+          - not_null
+      - name: cohort_revenue
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: true
