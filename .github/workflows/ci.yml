@@ -5,6 +5,10 @@ on: [push, pull_request]
 jobs:
   lint-and-build:
     runs-on: ubuntu-latest
+    # ESTO ES LO QUE CAMBIA: Le decimos que se pare en la carpeta olist
+    defaults:
+      run:
+        working-directory: ./olist 
 
     steps:
       - name: Checkout code
