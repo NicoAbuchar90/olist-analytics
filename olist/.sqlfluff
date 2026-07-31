@@ -1,0 +1,7 @@
+[sqlfluff]
+templater = jinja
+dialect = bigquery
+exclude_rules = LT05, ST06, RF04
+
+[sqlfluff:templater:jinja]
+apply_dbt_builtins = True
