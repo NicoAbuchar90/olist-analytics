@@ -23,8 +23,11 @@ jobs:
           pip install dbt-bigquery sqlfluff sqlfluff-templater-dbt
 
       - name: Authenticate to Google Cloud
+        env:
+          # Pasamos el secret a una variable de entorno primero (es más seguro para el JSON)
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
         run: |
-          echo "${{ secrets.GCP_SA_KEY }}" > $HOME/gcp-sa-key.json
+          echo "$GCP_SA_KEY" > $HOME/gcp-sa-key.json
 
       - name: Setup dbt profile for CI
         run: |
