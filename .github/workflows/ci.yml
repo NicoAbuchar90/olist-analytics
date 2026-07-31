@@ -5,7 +5,6 @@ on: [push, pull_request]
 jobs:
   lint-and-build:
     runs-on: ubuntu-latest
-    # ESTO ES LO QUE CAMBIA: Le decimos que se pare en la carpeta olist
     defaults:
       run:
         working-directory: ./olist 
@@ -31,7 +30,7 @@ jobs:
         run: |
           mkdir -p ~/.dbt
           cat <<EOF > ~/.dbt/profiles.yml
-          olist_store:
+          olist:
             target: ci
             outputs:
               ci:
