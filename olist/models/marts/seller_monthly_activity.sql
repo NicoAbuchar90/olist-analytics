@@ -1,6 +1,6 @@
 with items as (
 
-    select * from {{ ref('fact_order_items') }}
+    select * from {{ ref('fct_order_items') }}
 
 ),
 
