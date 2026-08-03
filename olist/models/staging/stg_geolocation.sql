@@ -1,20 +1,20 @@
-with source as (
+WITH source AS (
 
-    select * from {{ source('olist_raw', 'olist_geolocation') }}
+    SELECT * FROM {{ source('olist_raw', 'olist_geolocation') }}
 
 ),
 
-renamed as (
+renamed AS (
 
-    select
+    SELECT
         geolocation_zip_code_prefix,
         geolocation_lat,
         geolocation_lng,
         geolocation_city,
         geolocation_state
 
-    from source
+    FROM source
 
 )
 
-select * from renamed
+SELECT * FROM renamed

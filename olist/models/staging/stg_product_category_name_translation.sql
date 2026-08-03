@@ -1,17 +1,17 @@
-with source as (
+WITH source AS (
 
-    select * from {{ source('olist_raw', 'product_category_name_translation') }}
+    SELECT * FROM {{ source('olist_raw', 'product_category_name_translation') }}
 
 ),
 
-renamed as (
+renamed AS (
 
-    select
+    SELECT
         product_category_name,
         product_category_name_english
 
-    from source
+    FROM source
 
 )
 
-select * from renamed
+SELECT * FROM renamed

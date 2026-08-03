@@ -11,16 +11,16 @@
     )
 }}
 
-with int_items as (
+WITH int_items AS (
 
-    select * from {{ ref('int_order_items_sellers') }}
+    SELECT * FROM {{ ref('int_order_items_sellers') }}
 
 ),
 
-final as (
+final AS (
 
-    select
-        {{ dbt_utils.generate_surrogate_key(['order_id', 'order_item_id']) }} as order_item_key,
+    SELECT
+        {{ dbt_utils.generate_surrogate_key(['order_id', 'order_item_id']) }} AS order_item_key,
         order_id,
         order_item_id,
         product_id,
@@ -33,14 +33,14 @@ final as (
         seller_city,
         seller_state
 
-    from int_items
+    FROM int_items
 
     {% if is_incremental() %}
 
-    where purchased_at > (select max(purchased_at) from {{ this }})
+        WHERE int_items.purchased_at > (SELECT max(existing.purchased_at) FROM {{ this }} AS existing)
 
     {% endif %}
 
 )
 
-select * from final
+SELECT * FROM final

@@ -1,17 +1,17 @@
-with order_items as (
-    select * from {{ ref('stg_order_items') }}
+WITH order_items AS (
+    SELECT * FROM {{ ref('stg_order_items') }}
 ),
 
-orders as (
-    select * from {{ ref('stg_orders') }}
+orders AS (
+    SELECT * FROM {{ ref('stg_orders') }}
 ),
 
-sellers as (
-    select * from {{ ref('stg_sellers') }}
+sellers AS (
+    SELECT * FROM {{ ref('stg_sellers') }}
 ),
 
-joined as (
-    select
+joined AS (
+    SELECT
         oi.order_id,
         oi.order_item_id,
         oi.product_id,
@@ -20,15 +20,15 @@ joined as (
         oi.freight_value,
         o.order_status,
         o.purchased_at,
-        date_trunc(date(o.purchased_at), month) as order_month,
+        date_trunc(date(o.purchased_at), MONTH) AS order_month,
         s.seller_city,
         s.seller_state
 
-    from order_items as oi
-    inner join orders as o
-        on oi.order_id = o.order_id
-    left join sellers as s
-        on oi.seller_id = s.seller_id
+    FROM order_items AS oi
+    INNER JOIN orders AS o
+        ON oi.order_id = o.order_id
+    LEFT JOIN sellers AS s
+        ON oi.seller_id = s.seller_id
 )
 
-select * from joined
+SELECT * FROM joined

@@ -22,7 +22,7 @@ jobs:
           python-version: '3.14'
 
       - name: Install dependencies
-        run: pip install dbt-bigquery==1.12.0 sqlfluff==4.2.2
+        run: pip install dbt-bigquery==1.12.0 sqlfluff==4.2.2 sqlfluff-templater-dbt==4.2.2
 
       - name: Authenticate to Google Cloud
         env:

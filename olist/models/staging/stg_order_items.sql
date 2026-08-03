@@ -1,22 +1,22 @@
-with source as (
+WITH source AS (
 
-    select * from {{ source('olist_raw', 'olist_order_items') }}
+    SELECT * FROM {{ source('olist_raw', 'olist_order_items') }}
 
 ),
 
-renamed as (
+renamed AS (
 
-    select
+    SELECT
         order_id,
         order_item_id,
         product_id,
         seller_id,
-        cast(shipping_limit_date as timestamp) as shipping_limit_at,
+        cast(shipping_limit_date AS timestamp) AS shipping_limit_at,
         price,
         freight_value
 
-    from source
+    FROM source
 
 )
 
-select * from renamed
+SELECT * FROM renamed

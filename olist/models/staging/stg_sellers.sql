@@ -1,19 +1,19 @@
-with source as (
+WITH source AS (
 
-    select * from {{ source('olist_raw', 'olist_sellers') }}
+    SELECT * FROM {{ source('olist_raw', 'olist_sellers') }}
 
 ),
 
-renamed as (
+renamed AS (
 
-    select
+    SELECT
         seller_id,
         seller_zip_code_prefix,
         seller_city,
         seller_state
 
-    from source
+    FROM source
 
 )
 
-select * from renamed
+SELECT * FROM renamed

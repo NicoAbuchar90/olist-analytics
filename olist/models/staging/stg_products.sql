@@ -1,12 +1,12 @@
-with source as (
+WITH source AS (
 
-    select * from {{ source('olist_raw', 'olist_products') }}
+    SELECT * FROM {{ source('olist_raw', 'olist_products') }}
 
 ),
 
-renamed as (
+renamed AS (
 
-    select
+    SELECT
         product_id,
         product_category_name,
         product_name_lenght,
@@ -17,8 +17,8 @@ renamed as (
         product_height_cm,
         product_width_cm
 
-    from source
+    FROM source
 
 )
 
-select * from renamed
+SELECT * FROM renamed
