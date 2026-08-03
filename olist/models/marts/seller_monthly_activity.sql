@@ -1,31 +1,31 @@
-with items as (
+WITH items AS (
 
-    select * from {{ ref('int_order_items_sellers') }}
-
-),
-
-successful_items as (
-
-    select *
-    from items
-    where order_status in ('delivered', 'shipped')
+    SELECT * FROM {{ ref('fct_order_items') }}
 
 ),
 
-seller_monthly as (
+successful_items AS (
 
-    select
+    SELECT *
+    FROM items
+    WHERE order_status IN ('delivered', 'shipped')
+
+),
+
+seller_monthly AS (
+
+    SELECT
         seller_id,
         seller_state,
         order_month,
-        count(distinct order_id) as n_orders,
-        count(*) as n_items,
-        round(sum(price), 2) as revenue,
-        round(sum(freight_value), 2) as freight
+        count(DISTINCT order_id) AS n_orders,
+        count(*) AS n_items,
+        round(sum(price), 2) AS revenue,
+        round(sum(freight_value), 2) AS freight
 
-    from successful_items
-    group by seller_id, seller_state, order_month
+    FROM successful_items
+    GROUP BY seller_id, seller_state, order_month
 
 )
 
-select * from seller_monthly
+SELECT * FROM seller_monthly
