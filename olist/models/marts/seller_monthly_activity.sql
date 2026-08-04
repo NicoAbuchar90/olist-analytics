@@ -9,7 +9,7 @@ successful_items AS (
     SELECT *
     FROM items
     WHERE
-        order_status IN ('delivered', 'shipped')
+        order_status IN {{ successful_order_statuses() }}
         AND order_month >= date('2017-01-01')
 
 ),
