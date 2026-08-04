@@ -2,6 +2,7 @@ WITH items AS (
 
     SELECT * FROM {{ ref('fct_order_items') }}
 
+
 ),
 
 successful_items AS (
@@ -9,6 +10,7 @@ successful_items AS (
     SELECT *
     FROM items
     WHERE order_status IN ('delivered', 'shipped')
+    AND order_month >= date('2017-01-01')
 
 ),
 

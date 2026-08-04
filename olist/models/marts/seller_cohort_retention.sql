@@ -44,5 +44,17 @@ cohort_retention AS (
 
 )
 
-SELECT * FROM cohort_retention
+SELECT
+    cohort_month,
+    order_month,
+    tenure,
+    n_active_sellers,
+    cohort_revenue,
+    round(
+        n_active_sellers / first_value(n_active_sellers) OVER (
+            PARTITION BY cohort_month ORDER BY tenure
+        ),
+        4
+    ) AS retention_pct
+FROM cohort_retention
 ORDER BY order_month, cohort_month, tenure
