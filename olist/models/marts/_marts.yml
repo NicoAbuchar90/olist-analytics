@@ -50,3 +50,11 @@ models:
               arguments:
                 min_value: 0
                 inclusive: true
+      - name: retention_pct
+        description: "Share of the cohort's initial active sellers (tenure=1) still active at this tenure."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: 0
+                inclusive: true

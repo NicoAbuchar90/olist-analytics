@@ -8,7 +8,9 @@ successful_items AS (
 
     SELECT *
     FROM items
-    WHERE order_status IN ('delivered', 'shipped')
+    WHERE
+        order_status IN ('delivered', 'shipped')
+        AND order_month >= date('2017-01-01')
 
 ),
 
