@@ -52,7 +52,7 @@ SELECT
     cohort_revenue,
     round(
         n_active_sellers / first_value(n_active_sellers) OVER (
-            PARTITION BY cohort_month ORDER BY tenure
+            PARTITION BY cohort_month, seller_state ORDER BY tenure
         ),
         4
     ) AS retention_pct
