@@ -4,7 +4,6 @@ WITH monthly AS (
 
 ),
 
--- 1. cohorte de cada seller = mes de su primera venta
 seller_cohort AS (
 
     SELECT
@@ -15,13 +14,13 @@ seller_cohort AS (
 
 ),
 
--- 2. cada mes activo del seller + su cohorte + tenure
 activity_with_cohort AS (
 
     SELECT
         m.seller_id,
         c.cohort_month,
         m.order_month,
+        m.seller_state,
         date_diff(m.order_month, c.cohort_month, MONTH) + 1 AS tenure,
         m.revenue
     FROM monthly AS m
@@ -30,17 +29,17 @@ activity_with_cohort AS (
 
 ),
 
--- 3. retención: cuántos sellers activos por cohorte y tenure
 cohort_retention AS (
 
     SELECT
         cohort_month,
         order_month,
         tenure,
+        seller_state,
         count(DISTINCT seller_id) AS n_active_sellers,
         round(sum(revenue), 2) AS cohort_revenue
     FROM activity_with_cohort
-    GROUP BY cohort_month, order_month, tenure
+    GROUP BY cohort_month, order_month, tenure, seller_state
 
 )
 
@@ -48,6 +47,7 @@ SELECT
     cohort_month,
     order_month,
     tenure,
+    seller_state,
     n_active_sellers,
     cohort_revenue,
     round(
